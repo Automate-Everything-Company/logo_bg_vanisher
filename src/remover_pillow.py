@@ -1,43 +1,43 @@
-import os
+"""
+Module which handles background removal from pics using Pillow
+"""
+from ctypes import Union
+from pathlib import Path
 
-from PIL import Image
+from PIL import Image, ImageFilter
 
 
-def remove_white_background(image_path, output_path):
+def process_image_with_edge_removal(input_path: Path, output_path: Union[Path,False], tolerance: int = 50,
+                                    edge_tolerance: int = 50):
     # Open the image
-    img = Image.open(image_path)
+    img = Image.open(input_path).convert("RGBA")
 
-    # Convert the image to RGBA (if it's not already)
-    img = img.convert("RGBA")
+    # Get the background color (assuming it's the color of the top-left pixel)
+    bg_color = img.getpixel((0, 0))
 
-    # Get the alpha channel
-    alpha = img.split()[3]
+    # Convert img to grayscale for better edge detection and create an edge mask
+    edge_mask = img.convert("L").filter(ImageFilter.FIND_EDGES)
 
-    # Iterate over each pixel and modify the alpha channel based on whether the pixel is white
-    for x in range(img.width):
-        for y in range(img.height):
-            pixel = img.getpixel((x, y))
-            if pixel[:3] == (255, 255, 255):  # If the pixel is white
-                alpha_value = 0  # Set alpha channel to 0 (fully transparent)
+    data = img.getdata()
+    edge_data = edge_mask.getdata()
+    new_data = []
+    for i, item in enumerate(data):
+        if edge_data[i] > 0:  # If the pixel is on an edge
+            if all(abs(item[j] - bg_color[j]) <= edge_tolerance for j in range(3)):
+                new_data.append((255, 255, 255, 0))  # Transparent
             else:
-                alpha_value = pixel[3]  # Use the existing alpha value
+                new_data.append(item)
+        else:
+            if all(abs(item[j] - bg_color[j]) <= tolerance for j in range(3)):
+                new_data.append((255, 255, 255, 0))  # Transparent
+            else:
+                new_data.append(item)
 
-            # Modify the pixel with the updated alpha channel value
-            img.putpixel((x, y), (pixel[0], pixel[1], pixel[2], alpha_value))
+    img.putdata(new_data)
+    if not output_path:
+        output_path = Path(f"{input_path}_PIL_converted.png")
+    else:
+        filename = input_path.name
+        output_path = Path(f"converted/{filename}_PIL_converted.png")
 
-    # Save the image with no background as PNG
-    img.save(output_path, format='PNG')
-
-
-def process_images(folder_path, output_folder):
-    # Loop through all files in the input folder
-    for filename in os.listdir(folder_path):
-        if filename.lower().endswith(('.png', '.jpg', '.jpeg')):
-            input_path = os.path.join(folder_path, filename)
-
-            # Change the output extension to '.png'
-            output_filename = f"{os.path.splitext(filename)[0]}_no_background.png"
-            output_path = os.path.join(output_folder, output_filename)
-
-            remove_white_background(input_path, output_path)
-            print(f"Processed: {filename}")
+    img.save(output_path, "PNG")

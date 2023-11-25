@@ -8,6 +8,5 @@ def select_folder():
     root.withdraw()  # Hide the main window
 
     # Ask the user to select a folder
-    folder_path = filedialog.askdirectory(initialdir=Path.cwd(), title="Select Folder")
-
+    folder_path = Path(filedialog.askdirectory(initialdir=Path.cwd(), title="Select Folder"))
     return folder_path

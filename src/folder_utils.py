@@ -20,22 +20,3 @@ def find_files(path: Path, extension: Union[Tuple, None]) -> List[Path]:
         return [pic for pic in path.iterdir()]
 
 
-def save_image(img: Image, input_path: Path, output_path: Union[bool, Path], suffix: str = "converted") -> None:
-    """
-    Saves the image
-
-    :param img:
-    :param input_path: User defined input path
-    :param output_path: Optional output path
-    :param suffix: Suffix for converted images
-    :return: None
-    """
-    if not output_path:
-        output_path = Path(f"{input_path.stem}_Pillow_converted.png")
-    else:
-        if not output_path.is_dir():
-            output_path.mkdir(parents=True, exist_ok=True)
-            output_path = output_path / f"{input_path.stem}_Pillow_converted.png"
-        else:
-            output_path = output_path / f"{input_path.stem}_Pillow_converted.png"
-    img.save(output_path, "PNG")

@@ -8,6 +8,18 @@ import argparse
 from folder_utils import find_files
 from remover_pillow import PillowBackgroundRemoval
 from remover_rmbgr import RmbgrBackgroundRemoval
+from background_remover import BackgroundRemovalStrategy
+
+
+def extract_remover_type(args):
+    remover: BackgroundRemovalStrategy
+    if args.method == "pillow":
+        remover = PillowBackgroundRemoval(tolerance=50, edge_tolerance=50)
+    elif args.method == "rmbgr":
+        remover = RmbgrBackgroundRemoval()
+    else:
+        raise ValueError("Method must be either 'pillow' or 'rmbgr'.")
+    return remover
 
 
 def parse_arguments():
@@ -30,26 +42,15 @@ def parse_arguments():
 
 def main():
     args = parse_arguments()
-    remover = args.method
-    if remover not in ("pillow", "rmbgr"):
-        raise ValueError("Method must be: pillow or rmbgr. Please try again.")
-    else:
-        remover = args.method
-    folder_path = Path(args.input_path)
-    if args.output_path:
-        output_path = Path(args.output_path)
 
-    else:
-        output_path = False
+    folder_path = Path(args.input_path)
+    output_path = Path(args.output_path) if args.output_path else False
+    remover = extract_remover_type(args)
 
     pics = find_files(path=folder_path, extension=(".png", ".jpeg", ".jpg"))
+
     for pic in pics:
-        if remover == "pillow":
-            pillow_remover = PillowBackgroundRemoval(tolerance=50, edge_tolerance=50)
-            pillow_remover.remove_background(input_path=pic, output_path=output_path)
-        else:
-            rmbgr_remover = RmbgrBackgroundRemoval()
-            rmbgr_remover.remove_background(input_path=pic, output_path=output_path)
+        remover.remove_background(input_path=pic, output_path=output_path)
 
     print("Done!")
 

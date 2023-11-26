@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "logo_background_remover"  # Your package name
+version = "0.1.0"
+description = "A package to remove backgrounds from AI-generated logos."
+authors = [{ name = "Dragos Josan", email = "dragosjosan@gmail.com" }]
+license = {file = "LICENSE.txt"}
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+dependencies = [
+    "Pillow",
+    "rembg"
+]
+
+[tool.setuptools]
+packages = [
+    { find = { include = ["logo_background_remover*"] } },
+]
+
+[project.scripts]
+ai-logo-remover = "logo_background_remover.main:run_cli"

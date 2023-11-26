@@ -1,13 +1,13 @@
 """
 Module which handles background removal from pics using Pillow
 """
-from ctypes import Union
+from typing import Union
 from pathlib import Path
 
 from PIL import Image, ImageFilter
 
 
-def process_image_with_edge_removal(input_path: Path, output_path: Union[Path,False], tolerance: int = 50,
+def process_image_with_edge_removal(input_path: Path, output_path: Union[bool, Path] = False, tolerance: int = 50,
                                     edge_tolerance: int = 50):
     # Open the image
     img = Image.open(input_path).convert("RGBA")
@@ -35,9 +35,12 @@ def process_image_with_edge_removal(input_path: Path, output_path: Union[Path,Fa
 
     img.putdata(new_data)
     if not output_path:
-        output_path = Path(f"{input_path}_PIL_converted.png")
+        output_path = Path(f"{input_path.stem}_pillow_converted.png")
     else:
-        filename = input_path.name
-        output_path = Path(f"converted/{filename}_PIL_converted.png")
+        if not output_path.is_dir():
+            output_path.mkdir(parents=True, exist_ok=True)
+            output_path = output_path / f"{input_path.stem}_pillow_converted.png"
+        else:
+            output_path = output_path / f"{input_path.stem}_pillow_converted.png"
 
     img.save(output_path, "PNG")

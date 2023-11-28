@@ -6,7 +6,7 @@ from pathlib import Path
 
 from PIL import Image, ImageFilter
 
-from background_remover import BackgroundRemovalStrategy
+from .background_remover import BackgroundRemovalStrategy
 
 
 class PillowBackgroundRemoval(BackgroundRemovalStrategy):
@@ -18,7 +18,7 @@ class PillowBackgroundRemoval(BackgroundRemovalStrategy):
     def __init__(self, tolerance: int = 50, edge_tolerance: int = 50):
         self.tolerance = tolerance
         self.edge_tolerance = edge_tolerance
-        self.suffix = "converted_pillow"
+        self.suffix = "pillow_converted"
 
     def remove_background(self, input_path: Path, output_path: Union[bool, Path] = False) -> None:
         img = Image.open(input_path).convert("RGBA")
@@ -60,7 +60,7 @@ class PillowBackgroundRemoval(BackgroundRemovalStrategy):
         :return: None
         """
         if not output_path:
-            output_path = Path(f"{input_path.stem}_Pillow_converted.png")
+            output_path = Path(f"{input_path.stem}_pillow_converted.png")
         else:
             if not output_path.is_dir():
                 output_path.mkdir(parents=True, exist_ok=True)

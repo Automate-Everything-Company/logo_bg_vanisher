@@ -22,9 +22,7 @@ dependencies = [
 ]
 
 [tool.setuptools]
-packages = [
-    { find = { include = ["logo_background_remover*"] } },
-]
+package-dir = {"" = "src"}
 
 [project.scripts]
 ai-logo-remover = "logo_background_remover.main:run_cli"

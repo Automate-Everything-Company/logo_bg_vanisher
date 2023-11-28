@@ -3,9 +3,9 @@ requires = ["setuptools>=42", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "logo_background_remover"  # Your package name
+name = "LogoBgVanisher"  # Your package name
 version = "0.1.0"
-description = "A package to remove backgrounds from AI-generated logos."
+description = "A package to remove (or make transparent) the background from AI-generated logos."
 authors = [{ name = "Dragos Josan", email = "dragosjosan@gmail.com" }]
 license = {file = "LICENSE.txt"}
 readme = "README.md"
@@ -18,11 +18,12 @@ classifiers = [
 
 dependencies = [
     "Pillow",
-    "rembg"
+    "rembg",
+    "pytest"
 ]
 
 [tool.setuptools]
 package-dir = {"" = "src"}
 
 [project.scripts]
-ai-logo-remover = "logo_background_remover.main:run_cli"
+background_logo_remover = "logobgvanisher.main:main"

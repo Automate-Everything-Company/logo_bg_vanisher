@@ -32,3 +32,4 @@ sympy==1.12
 tifffile==2023.9.26
 tqdm==4.66.1
 urllib3==2.1.0
+pytest

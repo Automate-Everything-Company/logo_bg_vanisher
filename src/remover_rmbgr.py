@@ -5,7 +5,7 @@ from typing import Union
 from pathlib import Path
 import rembg
 
-from background_remover import BackgroundRemovalStrategy
+from .background_remover import BackgroundRemovalStrategy
 
 
 class RmbgrBackgroundRemoval(BackgroundRemovalStrategy):

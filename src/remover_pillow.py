@@ -7,6 +7,7 @@ from pathlib import Path
 from PIL import Image, ImageFilter
 
 from .background_remover import BackgroundRemovalStrategy
+from .saver import SavePic
 
 
 class PillowBackgroundRemoval(BackgroundRemovalStrategy):
@@ -19,11 +20,12 @@ class PillowBackgroundRemoval(BackgroundRemovalStrategy):
         self.tolerance = tolerance
         self.edge_tolerance = edge_tolerance
         self.suffix = "pillow_converted"
+        self.saver = SavePic()
 
     def remove_background(self, input_path: Path, output_path: Union[bool, Path] = False) -> None:
         img = Image.open(input_path).convert("RGBA")
         processed_img = self._process_image_data(img=img)
-        self.save_image_pillow(img=processed_img, input_path=input_path, output_path=output_path, suffix=self.suffix)
+        self.save_pic(img=processed_img, input_path=input_path, output_path=output_path)
 
     def _process_image_data(self, img: Image) -> list:
         # Get the background color (assuming it's the color of the top-left pixel)
@@ -47,24 +49,12 @@ class PillowBackgroundRemoval(BackgroundRemovalStrategy):
         img.putdata(new_data)
         return img
 
-    @staticmethod
-    def save_image_pillow(img: Image, input_path: Path, output_path: Union[bool, Path],
-                          suffix: str = "converted") -> None:
+    def save_pic(self, img, input_path, output_path) -> None:
         """
-        Saves the image
-
-        :param img: PIL Image object
+        Saves pics
+        :param img: Pillow image object
         :param input_path: User defined input path
-        :param output_path: Optional output path
-        :param suffix: Suffix for converted images
+        :param output_path: User defined output path (optional)
         :return: None
         """
-        if not output_path:
-            output_path = Path(f"{input_path.stem}_pillow_converted.png")
-        else:
-            if not output_path.is_dir():
-                output_path.mkdir(parents=True, exist_ok=True)
-                output_path = output_path / f"{input_path.stem}_{suffix}.png"
-            else:
-                output_path = output_path / f"{input_path.stem}_{suffix}.png"
-        img.save(output_path, "PNG")
+        self.saver.save_image(img=img, input_path=input_path, output_path=output_path, suffix=self.suffix)

@@ -15,9 +15,9 @@ class Cropper(ABC):
     @abstractmethod
     def crop(self, image: Image) -> Image:
         """
-        Interface for cropping classes.
+        Abstract method for cropping objects.
+        :return: Pillow image
         """
-        pass
 
 
 class AutoCropper(Cropper):

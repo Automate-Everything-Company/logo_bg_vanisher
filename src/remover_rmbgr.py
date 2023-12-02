@@ -19,6 +19,3 @@ class RmbgrBackgroundRemoval(BackgroundRemovalStrategy):
         img = img.convert("RGBA")
         processed_img = rembg.remove(img)
         return processed_img
-Fix relative import for build.
-Make remove_background method work with and Image object.
-Remove the save file capabilities.

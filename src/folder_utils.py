@@ -6,6 +6,8 @@ from typing import List, Tuple, Union
 
 from PIL.Image import Image
 
+from src import CreatePillowImage
+
 
 def find_files(path: Path, extension: Union[str, Tuple, None]) -> List[Path]:
     """
@@ -40,3 +42,14 @@ def _save_image_pillow(img: Image, input_path: Path, output_path: Union[bool, Pa
         else:
             output_path = output_path / f"{input_path.stem}{suffix}.png"
     img.save(output_path, "PNG")
+
+
+def load_image(picture: Path) -> Union[Image, None]:
+    try:
+        if picture:
+            image_creator = CreatePillowImage()
+            image_obj = image_creator.convert_image(file=picture)
+            return image_obj
+    except IOError as e:
+        print(f"Error opening image: {e}")
+        return None

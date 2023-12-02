@@ -6,14 +6,11 @@ from pathlib import Path
 import argparse
 from typing import Union
 
-from PIL.Image import Image
-
-from image_creator import CreatePillowImage
 from remover_pillow import PillowBackgroundRemoval
 from remover_rmbgr import RmbgrBackgroundRemoval
 from background_remover import BackgroundRemovalStrategy
 from cropper import AutoCropper, ManualCropper
-from folder_utils import find_files
+from folder_utils import find_files, load_image
 from saver import SavePic
 from sizer import AspectRatioSizer, ManualSizer
 
@@ -52,19 +49,8 @@ def parse_arguments():
     return parser.parse_args()
 
 
-def _load_image(picture: Path) -> Union[Image, None]:
-    try:
-        if picture:
-            image_creator = CreatePillowImage()
-            image_obj = image_creator.convert_image(file=picture)
-            return image_obj
-    except IOError as e:
-        print(f"Error opening image: {e}")
-        return None
-
-
 def _process_image(pic: Path, user_args: argparse.Namespace, output_path: Union[Path, None] = None) -> None:
-    image_object = _load_image(picture=pic)
+    image_object = load_image(picture=pic)
     suffix = ""
     # Background removal
     if user_args.method == "pillow":

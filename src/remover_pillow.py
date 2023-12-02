@@ -6,8 +6,8 @@ from pathlib import Path
 
 from PIL import Image, ImageFilter
 
-from .background_remover import BackgroundRemovalStrategy
-from .saver import SavePic
+from background_remover import BackgroundRemovalStrategy
+from saver import SavePic
 
 
 class PillowBackgroundRemoval(BackgroundRemovalStrategy):
@@ -22,10 +22,13 @@ class PillowBackgroundRemoval(BackgroundRemovalStrategy):
         self.suffix = "pillow_converted"
         self.saver = SavePic()
 
-    def remove_background(self, input_path: Path, output_path: Union[bool, Path] = False) -> None:
-        img = Image.open(input_path).convert("RGBA")
+    def remove_background(self, img: Image) -> Image:
+        if img is None or not hasattr(img, 'convert'):
+            raise ValueError("Invalid image object provided")
+
+        img = img.convert("RGBA")
         processed_img = self._process_image_data(img=img)
-        self.save_pic(img=processed_img, input_path=input_path, output_path=output_path)
+        return processed_img
 
     def _process_image_data(self, img: Image) -> list:
         # Get the background color (assuming it's the color of the top-left pixel)
@@ -48,13 +51,3 @@ class PillowBackgroundRemoval(BackgroundRemovalStrategy):
                     new_data.append(item)
         img.putdata(new_data)
         return img
-
-    def save_pic(self, img, input_path, output_path) -> None:
-        """
-        Saves pics
-        :param img: Pillow image object
-        :param input_path: User defined input path
-        :param output_path: User defined output path (optional)
-        :return: None
-        """
-        self.saver.save_image(img=img, input_path=input_path, output_path=output_path, suffix=self.suffix)

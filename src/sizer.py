@@ -4,6 +4,7 @@ Module which handles the sizing
 from abc import ABC, abstractmethod
 from typing import Union
 
+import PIL
 from PIL import Image
 
 
@@ -32,13 +33,19 @@ class AspectRatioSizer(Sizer):
         if not self.width:
             raise ValueError("No width provided. The width must be an integer")
         else:
-            with Image.open(image) as img:
-                # Calculate new height to maintain aspect ratio
-                w_percent = (self.width / float(img.size[0]))
-                new_height = int((float(img.size[1]) * float(w_percent)))
+            new_height = self._calculate_height(img=image)
+            resized_img = image.resize(size=(self.width, new_height))
+            return resized_img
 
-                resized_img = img.resize((self.width, new_height), Image.ANTIALIAS)
-                return resized_img
+    def _calculate_height(self, img: Image):
+        """
+        Calcules for the user given width the new height in order to keep the original aspect ratio.
+        :param img: Pillow Image object
+        :return: New calculated height
+        """
+        w_percent = (self.width / float(img.size[0]))
+        new_height = int((float(img.size[1]) * float(w_percent)))
+        return new_height
 
 
 class ManualSizer(Sizer):
@@ -54,6 +61,5 @@ class ManualSizer(Sizer):
         if not all((self.width, self.height)):
             raise ValueError("Width and height must be provided in integer form (width, height)")
         else:
-            with Image.open(image) as img:
-                resized_img = img.resize((self.width, self.height), Image.ANTIALIAS)
-                return resized_img
+            resized_img = image.resize((self.width, self.height), Image.ANTIALIAS)
+            return resized_img

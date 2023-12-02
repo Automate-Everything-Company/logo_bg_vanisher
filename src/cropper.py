@@ -13,7 +13,7 @@ class Cropper(ABC):
     """
 
     @abstractmethod
-    def crop(self, image: Image) -> Image:
+    def crop_image(self, image: Image) -> Image:
         """
         Abstract method for cropping objects.
         :return: Pillow image
@@ -25,7 +25,7 @@ class AutoCropper(Cropper):
     Performs auto-cropping
     """
 
-    def crop(self, image: Image) -> Image:
+    def crop_image(self, image: Image) -> Image:
         if image.mode != 'RGBA':
             raise ValueError("Image must be in RGBA mode for auto cropping")
 
@@ -44,7 +44,7 @@ class ManualCropper(Cropper):
     def __init__(self):
         self.dimensions: Union[None, Tuple[int, int, int, int]] = None
 
-    def crop(self, image: Image) -> Image:
+    def crop_image(self, image: Image) -> Image:
         if not self.dimensions:
             msg = "No dimensions provided. Dimensions must be a tuple of four integers (left, upper, right, lower)"
             raise ValueError(msg)

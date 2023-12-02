@@ -7,7 +7,7 @@ from typing import List, Tuple, Union
 from PIL.Image import Image
 
 
-def find_files(path: Path, extension: Union[Tuple, None]) -> List[Path]:
+def find_files(path: Path, extension: Union[str, Tuple, None]) -> List[Path]:
     """
     Finds and returns files with certain extension
     :param path:
@@ -32,11 +32,11 @@ def _save_image_pillow(img: Image, input_path: Path, output_path: Union[bool, Pa
     :return: None
     """
     if not output_path:
-        output_path = Path(f"{input_path.stem}_{suffix}.png")
+        output_path = Path(f"{input_path.stem}{suffix}.png")
     else:
         if not output_path.is_dir():
             output_path.mkdir(parents=True, exist_ok=True)
-            output_path = output_path / f"{input_path.stem}_{suffix}.png"
+            output_path = output_path / f"{input_path.stem}{suffix}.png"
         else:
-            output_path = output_path / f"{input_path.stem}_{suffix}.png"
+            output_path = output_path / f"{input_path.stem}{suffix}.png"
     img.save(output_path, "PNG")

@@ -1,21 +1,19 @@
 """
-Module which handles background removal from pics using rmbgr
+Module which handles background removal from pics using Rmbgr
 """
-from typing import Union
-from pathlib import Path
 import rembg
 from PIL import Image
 
-from background_remover import BackgroundRemovalStrategy
-from saver import SavePic
+from .background_remover import BackgroundRemovalStrategy
 
 
 class RmbgrBackgroundRemoval(BackgroundRemovalStrategy):
-    def __init__(self):
+    def __init__(self, img):
+        super().__init__(img)
+        self.image = img
         self.suffix = "rmbgr_converted"
-        self.saver = SavePic()
 
-    def remove_background(self, img: Image) -> Image:
-        img = img.convert("RGBA")
+    def remove_background(self) -> Image:
+        img = self.image.convert("RGBA")
         processed_img = rembg.remove(img)
         return processed_img

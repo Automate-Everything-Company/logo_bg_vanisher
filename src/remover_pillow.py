@@ -1,13 +1,10 @@
 """
 Module which handles background removal from pics using Pillow
 """
-from typing import Union
-from pathlib import Path
-
 from PIL import Image, ImageFilter
 
-from background_remover import BackgroundRemovalStrategy
-from saver import SavePic
+from .background_remover import BackgroundRemovalStrategy
+from .saver import SavePic
 
 
 class PillowBackgroundRemoval(BackgroundRemovalStrategy):
@@ -16,18 +13,22 @@ class PillowBackgroundRemoval(BackgroundRemovalStrategy):
     It identifies the first pixel (upper left), which is background, and not the logo itself.
     """
 
-    def __init__(self, tolerance: int = 50, edge_tolerance: int = 50):
+    def __init__(self, img: Image, tolerance: int = 50, edge_tolerance: int = 50):
+        super().__init__(img)
+        self.image = img
+        self.filename = img.filename
         self.tolerance = tolerance
         self.edge_tolerance = edge_tolerance
         self.suffix = "pillow_converted"
-        self.saver = SavePic()
+        self.filename = img.filename
 
-    def remove_background(self, img: Image) -> Image:
-        if img is None or not hasattr(img, 'convert'):
+    def remove_background(self) -> Image:
+        if self.image is None or not hasattr(self.image, 'convert'):
             raise ValueError("Invalid image object provided")
 
-        img = img.convert("RGBA")
+        img = self.image.convert("RGBA")
         processed_img = self._process_image_data(img=img)
+        processed_img.filename = self.filename
         return processed_img
 
     def _process_image_data(self, img: Image) -> list:

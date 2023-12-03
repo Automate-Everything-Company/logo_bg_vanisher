@@ -12,10 +12,12 @@ class BackgroundRemovalStrategy(ABC):
     Interface for background removers
     """
 
+    def __init__(self, img: Image):
+        self.image = img
+
     @abstractmethod
-    def remove_background(self, img: Image) -> Image:
+    def remove_background(self) -> Image:
         """
-        :param img: Pillow Image object
         :return:  Pillow Image object
         """
         pass

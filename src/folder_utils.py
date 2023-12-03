@@ -22,28 +22,6 @@ def find_files(path: Path, extension: Union[str, Tuple, None]) -> List[Path]:
         return [pic for pic in path.iterdir()]
 
 
-def _save_image_pillow(img: Image, input_path: Path, output_path: Union[bool, Path],
-                       suffix: str = "converted") -> None:
-    """
-    Saves the image
-
-    :param img: PIL Image object
-    :param input_path: User defined input path
-    :param output_path: Optional output path
-    :param suffix: Suffix for converted images
-    :return: None
-    """
-    if not output_path:
-        output_path = Path(f"{input_path.stem}{suffix}.png")
-    else:
-        if not output_path.is_dir():
-            output_path.mkdir(parents=True, exist_ok=True)
-            output_path = output_path / f"{input_path.stem}{suffix}.png"
-        else:
-            output_path = output_path / f"{input_path.stem}{suffix}.png"
-    img.save(output_path, "PNG")
-
-
 def load_image(picture: Path) -> Union[Image, None]:
     try:
         if picture:

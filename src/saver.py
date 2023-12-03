@@ -10,19 +10,19 @@ class SavePic:
     Class to save the Pillow image object
     """
 
-    @staticmethod
-    def save_image(img: Image, path: Path, suffix: str = "converted") -> None:
+    def __init__(self, img: Image):
+        self.image = img
+
+    def save_image(self, suffix: str = "converted") -> None:
         """
         Saves the image
-
-        :param path: Path to the unedited picture
-        :param img: PIL Image object
         :param suffix: Suffix for converted images
         :return: None
         """
         try:
-            output_path = path.parent / f"{path.stem}{suffix}.png"
-            img.save(output_path, "PNG")
+            filename = Path(self.image.filename)
+            output_path = filename.parent / f"{filename.stem}_{suffix}.png"
+            self.image.save(output_path, "PNG")
         except OSError as e:
             print(f"Error saving image: {e}")
         except ValueError as e:

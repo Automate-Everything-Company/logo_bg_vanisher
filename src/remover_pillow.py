@@ -15,12 +15,10 @@ class PillowBackgroundRemoval(BackgroundRemovalStrategy):
 
     def __init__(self, img: Image, tolerance: int = 50, edge_tolerance: int = 50):
         super().__init__(img)
-        self.image = img
         self.filename = img.filename
         self.tolerance = tolerance
         self.edge_tolerance = edge_tolerance
         self.suffix = "pillow_converted"
-        self.filename = img.filename
 
     def remove_background(self) -> Image:
         if self.image is None or not hasattr(self.image, 'convert'):

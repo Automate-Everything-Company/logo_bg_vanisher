@@ -81,13 +81,13 @@ def _process_image(pic: Path, user_args: argparse.Namespace) -> None:
     # Crop
     if user_args.crop:
         if user_args.crop.lower() == 'auto':
-            cropper = AutoCropper()
-            image_object = cropper.crop_image(image=image_object)
+            cropper = AutoCropper(img=image_object)
+            image_object = cropper.crop_image()
             suffix = suffix + "_cropped"
         else:
-            cropper = ManualCropper()
-            cropper.dimensions = map(int, user_args.crop.split(','))
-            image_object = cropper.crop_image(image=image_object)
+            cropper = ManualCropper(img=image_object)
+            cropper.dimensions = tuple(map(int, user_args.crop.split(',')))
+            image_object = cropper.crop_image()
             suffix = suffix + "_cropped"
 
     image_saver = SavePic(img=image_object)

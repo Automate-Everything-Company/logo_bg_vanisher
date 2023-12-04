@@ -40,9 +40,9 @@ jobs:
       - name: Install ruff
         run: pip install ruff
       - name: Lint with ruff
-        run: ruff check .
+        run: ruff check src/
       - name: Format code with ruff
-        run: ruff format .
+        run: ruff format src/
 
   test:
     runs-on: ubuntu-latest

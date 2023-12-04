@@ -65,12 +65,12 @@ def _process_image(pic: Path, user_args: argparse.Namespace) -> None:
 
     # Resize
     if user_args.resize:
-        scaler = ManualSizer() if ',' in user_args.resize else AspectRatioSizer()
+        scaler = ManualSizer(img=image_object) if ',' in user_args.resize else AspectRatioSizer(img=image_object)
         if ',' in user_args.resize:
             width, height = map(int, user_args.resize.split(','))
             scaler.width = width
             scaler.height = height
-            image_object = scaler.set_size(image=image_object)
+            image_object = scaler.set_size()
             suffix = suffix + "_scaled"
         else:
             width = int(user_args.resize)

@@ -4,7 +4,6 @@ Module which handles the sizing
 from abc import ABC, abstractmethod
 from typing import Union
 
-import PIL
 from PIL import Image
 
 
@@ -13,8 +12,11 @@ class Sizer(ABC):
     Interface for sizer objects
     """
 
+    def __init__(self, img: Image):
+        self.image = img
+
     @abstractmethod
-    def set_size(self, image: Image) -> Image:
+    def set_size(self) -> Image:
         """
         Abstract method for sizer objects.
         :return: Pillow image
@@ -26,15 +28,18 @@ class AspectRatioSizer(Sizer):
     Changes the picture size while keeping the aspect ratio.
     """
 
-    def __init__(self):
+    def __init__(self, img):
+        super().__init__(img)
+        self.filename = img.filename
         self.width: Union[None, int] = None
 
-    def set_size(self, image: Image) -> Image:
+    def set_size(self) -> Image:
         if not self.width:
             raise ValueError("No width provided. The width must be an integer")
         else:
-            new_height = self._calculate_height(img=image)
-            resized_img = image.resize(size=(self.width, new_height))
+            new_height = self._calculate_height(img=self.image)
+            resized_img = self.image.resize(size=(self.width, new_height))
+            resized_img.filename = self.filename
             return resized_img
 
     def _calculate_height(self, img: Image):
@@ -53,13 +58,16 @@ class ManualSizer(Sizer):
     Changes the picture size from user width and height
     """
 
-    def __init__(self):
+    def __init__(self, img):
+        super().__init__(img)
+        self.filename = img.filename
         self.width: Union[None, int] = None
         self.height: Union[None, int] = None
 
-    def set_size(self, image: Image) -> Image:
+    def set_size(self) -> Image:
         if not all((self.width, self.height)):
             raise ValueError("Width and height must be provided in integer form (width, height)")
         else:
-            resized_img = image.resize((self.width, self.height), Image.ANTIALIAS)
+            resized_img = self.image.resize(size=(self.width, self.height))
+            resized_img.filename = self.filename
             return resized_img

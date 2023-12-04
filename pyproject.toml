@@ -26,4 +26,4 @@ dependencies = [
 package-dir = {"" = "src"}
 
 [project.scripts]
-background_logo_remover = "logobgvanisher.main:main"
+background_logo_remover = "main:main"

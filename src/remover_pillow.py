@@ -1,9 +1,6 @@
 """
 Module which handles background removal from pics using Pillow
 """
-from typing import Union
-from pathlib import Path
-
 from PIL import Image, ImageFilter
 
 from .background_remover import BackgroundRemovalStrategy
@@ -16,16 +13,21 @@ class PillowBackgroundRemoval(BackgroundRemovalStrategy):
     It identifies the first pixel (upper left), which is background, and not the logo itself.
     """
 
-    def __init__(self, tolerance: int = 50, edge_tolerance: int = 50):
+    def __init__(self, img: Image, tolerance: int = 50, edge_tolerance: int = 50):
+        super().__init__(img)
+        self.filename = img.filename
         self.tolerance = tolerance
         self.edge_tolerance = edge_tolerance
         self.suffix = "pillow_converted"
-        self.saver = SavePic()
 
-    def remove_background(self, input_path: Path, output_path: Union[bool, Path] = False) -> None:
-        img = Image.open(input_path).convert("RGBA")
+    def remove_background(self) -> Image:
+        if self.image is None or not hasattr(self.image, 'convert'):
+            raise ValueError("Invalid image object provided")
+
+        img = self.image.convert("RGBA")
         processed_img = self._process_image_data(img=img)
-        self.save_pic(img=processed_img, input_path=input_path, output_path=output_path)
+        processed_img.filename = self.filename
+        return processed_img
 
     def _process_image_data(self, img: Image) -> list:
         # Get the background color (assuming it's the color of the top-left pixel)
@@ -48,13 +50,3 @@ class PillowBackgroundRemoval(BackgroundRemovalStrategy):
                     new_data.append(item)
         img.putdata(new_data)
         return img
-
-    def save_pic(self, img, input_path, output_path) -> None:
-        """
-        Saves pics
-        :param img: Pillow image object
-        :param input_path: User defined input path
-        :param output_path: User defined output path (optional)
-        :return: None
-        """
-        self.saver.save_image(img=img, input_path=input_path, output_path=output_path, suffix=self.suffix)

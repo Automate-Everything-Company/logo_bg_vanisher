@@ -6,8 +6,10 @@ from typing import List, Tuple, Union
 
 from PIL.Image import Image
 
+from src import CreatePillowImage
 
-def find_files(path: Path, extension: Union[Tuple, None]) -> List[Path]:
+
+def find_files(path: Path, extension: Union[str, Tuple, None]) -> List[Path]:
     """
     Finds and returns files with certain extension
     :param path:
@@ -20,23 +22,12 @@ def find_files(path: Path, extension: Union[Tuple, None]) -> List[Path]:
         return [pic for pic in path.iterdir()]
 
 
-def _save_image_pillow(img: Image, input_path: Path, output_path: Union[bool, Path],
-                       suffix: str = "converted") -> None:
-    """
-    Saves the image
-
-    :param img: PIL Image object
-    :param input_path: User defined input path
-    :param output_path: Optional output path
-    :param suffix: Suffix for converted images
-    :return: None
-    """
-    if not output_path:
-        output_path = Path(f"{input_path.stem}_{suffix}.png")
-    else:
-        if not output_path.is_dir():
-            output_path.mkdir(parents=True, exist_ok=True)
-            output_path = output_path / f"{input_path.stem}_{suffix}.png"
-        else:
-            output_path = output_path / f"{input_path.stem}_{suffix}.png"
-    img.save(output_path, "PNG")
+def load_image(picture: Path) -> Union[Image, None]:
+    try:
+        if picture:
+            image_creator = CreatePillowImage()
+            image_obj = image_creator.convert_image(file=picture)
+            return image_obj
+    except IOError as e:
+        print(f"Error opening image: {e}")
+        return None

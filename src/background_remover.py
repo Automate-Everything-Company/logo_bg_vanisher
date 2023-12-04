@@ -3,8 +3,8 @@ Interface for background removal
 """
 
 from abc import ABC, abstractmethod
-from pathlib import Path
-from typing import Union
+
+from PIL import Image
 
 
 class BackgroundRemovalStrategy(ABC):
@@ -12,12 +12,12 @@ class BackgroundRemovalStrategy(ABC):
     Interface for background removers
     """
 
+    def __init__(self, img: Image):
+        self.image = img
+
     @abstractmethod
-    def remove_background(self, input_path: Path, output_path: Union[bool, Path] = False) -> None:
+    def remove_background(self) -> Image:
         """
-        :param input_path: Path object to a user specified directory
-        :param output_path: Optional argument to a user specified directory, in case the converted pic should be saved
-        in anoter folder
-        :return: None
+        :return:  Pillow Image object
         """
         pass

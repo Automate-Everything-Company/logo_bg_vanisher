@@ -2,11 +2,14 @@ name: Python Package
 
 on:
   push:
+    branches:
+      - '**' # Run on push to all branches
     tags:
-      - 'v*.*.*'
+      - 'v*.*.*' # Run on version tags for publishing
 
 jobs:
   publish-to-pypi:
+    if: startsWith(github.ref, 'refs/tags/v') # Run only if the push is a tag starting with 'v'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -29,9 +32,9 @@ jobs:
   code-quality:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v3
         with:
           python-version: '3.x'
       - name: Install ruff
@@ -41,14 +44,12 @@ jobs:
       - name: Format code with ruff
         run: ruff src --fix
 
-  # Additional suggestions:
-  # Run unit tests
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v3
         with:
           python-version: '3.x'
       - name: Install dependencies

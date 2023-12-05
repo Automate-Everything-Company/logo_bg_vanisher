@@ -16,6 +16,7 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 
+
 dependencies = [
     "Pillow",
     "rembg",
@@ -26,11 +27,10 @@ dependencies = [
 package-dir = {"" = "src"}
 
 [project.scripts]
-background_logo_remover = "main:main"
-
+logo_bg_vanisher = "main:main"
 
 [tool.ruff]
-src = ["src"]
+src = ["logo_bg_vanisher"]
 fix = true
 show-fixes = true
 show-source = true

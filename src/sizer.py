@@ -1,7 +1,8 @@
 """
 Module which handles the sizing
 """
-from abc import ABC, abstractmethod
+from abc import ABC
+from abc import abstractmethod
 from typing import Union
 
 from PIL import Image
@@ -49,7 +50,7 @@ class AspectRatioSizer(Sizer):
         :return: New calculated height
         """
         w_percent = (self.width / float(img.size[0]))
-        new_height = int((float(img.size[1]) * float(w_percent)))
+        new_height = int(float(img.size[1]) * float(w_percent))
         return new_height
 
 

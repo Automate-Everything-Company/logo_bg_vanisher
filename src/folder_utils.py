@@ -2,7 +2,9 @@
 Module to handle file operations
 """
 from pathlib import Path
-from typing import List, Tuple, Union
+from typing import List
+from typing import Tuple
+from typing import Union
 
 from PIL.Image import Image
 
@@ -28,6 +30,6 @@ def load_image(picture: Path) -> Union[Image, None]:
             image_creator = CreatePillowImage()
             image_obj = image_creator.convert_image(file=picture)
             return image_obj
-    except IOError as e:
+    except OSError as e:
         print(f"Error opening image: {e}")
         return None

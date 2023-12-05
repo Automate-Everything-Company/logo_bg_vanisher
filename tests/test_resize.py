@@ -1,11 +1,10 @@
 import os
-import pytest
 from pathlib import Path
 
-from src import ManualSizer, AspectRatioSizer
+import pytest
+from src import AspectRatioSizer
+from src import ManualSizer
 from src.folder_utils import load_image
-from src.remover_rmbgr import RmbgrBackgroundRemoval
-from src.remover_pillow import PillowBackgroundRemoval
 from src.saver import SavePic
 
 TEST_FOLDER = Path(__file__).parents[0]

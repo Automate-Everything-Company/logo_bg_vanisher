@@ -1,18 +1,19 @@
 """
 Main entry
 """
+import argparse
 from pathlib import Path
 
-import argparse
-from typing import Union
-
+from background_remover import BackgroundRemovalStrategy
+from cropper import AutoCropper
+from cropper import ManualCropper
+from folder_utils import find_files
+from folder_utils import load_image
 from remover_pillow import PillowBackgroundRemoval
 from remover_rmbgr import RmbgrBackgroundRemoval
-from background_remover import BackgroundRemovalStrategy
-from cropper import AutoCropper, ManualCropper
-from folder_utils import find_files, load_image
 from saver import SavePic
-from sizer import AspectRatioSizer, ManualSizer
+from sizer import AspectRatioSizer
+from sizer import ManualSizer
 
 
 def extract_remover_type(args):

@@ -1,11 +1,10 @@
 import os
-import pytest
 from pathlib import Path
-from PIL import Image
 
+import pytest
 from src.folder_utils import load_image
-from src.remover_rmbgr import RmbgrBackgroundRemoval
 from src.remover_pillow import PillowBackgroundRemoval
+from src.remover_rmbgr import RmbgrBackgroundRemoval
 from src.saver import SavePic
 
 TEST_FOLDER = Path(__file__).parents[0]

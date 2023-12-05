@@ -2,7 +2,8 @@
 Module which handles the Image creation
 
 """
-from abc import ABC, abstractmethod
+from abc import ABC
+from abc import abstractmethod
 from pathlib import Path
 from typing import Union
 
@@ -37,11 +38,11 @@ class CreatePillowImage(ImageCreator):
             raise FileNotFoundError(f"The file {file} does not exist")
         try:
             return Image.open(file)
-        except FileNotFoundError:
-            raise FileNotFoundError(f"The file {file} was not found")
-        except PermissionError:
-            raise PermissionError(f"Permission denied for file {file}")
-        except IOError as e:
-            raise IOError(f"An error occurred while opening the file {file}: {e}")
-        except Exception as e:
-            raise Exception(f"An unexpected error occurred: {e}")
+        except FileNotFoundError as exc:
+            raise FileNotFoundError(f"The file {file} was not found") from exc
+        except PermissionError as exc:
+            raise PermissionError(f"Permission denied for file {file}") from exc
+        except OSError as exc:
+            raise OSError(f"An error occurred while opening the file {file}: {exc}") from exc
+        except Exception as exc:
+            raise Exception(f"An unexpected error occurred: {exc}") from exc

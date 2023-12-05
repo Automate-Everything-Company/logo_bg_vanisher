@@ -1,10 +1,10 @@
 """
 Module which handles background removal from pics using Pillow
 """
-from PIL import Image, ImageFilter
+from PIL import Image
+from PIL import ImageFilter
 
 from .background_remover import BackgroundRemovalStrategy
-from .saver import SavePic
 
 
 class PillowBackgroundRemoval(BackgroundRemovalStrategy):

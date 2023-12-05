@@ -40,9 +40,9 @@ jobs:
       - name: Install ruff
         run: pip install ruff
       - name: Lint with ruff
-        run: ruff check src/ tests/
+        run: ruff check logo_bg_vanisher/ tests/
       - name: Format code with ruff
-        run: ruff format src/ tests/
+        run: ruff format logo_bg_vanisher/ tests/
 
   test:
     runs-on: ubuntu-latest

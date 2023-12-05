@@ -29,12 +29,12 @@ pip install your_package_name
 ### Pillow
 To remove the background with Pillow run:
 ```shell
-python3 src/main.py --input_path <your_input_path> --output_path <your_output_path> --method pillow
+python3 logo_bg_vanisher/main.py --input_path <your_input_path> --output_path <your_output_path> --method pillow
 ```
 ### Rmbg
 To remove the background with Rmbg run:
 ```shell
-python3 src/main.py --input_path <your_input_path> --output_path <your_output_path> --method rmbgr
+python3 logo_bg_vanisher/main.py --input_path <your_input_path> --output_path <your_output_path> --method rmbgr
 ```
 
 ## Requirements

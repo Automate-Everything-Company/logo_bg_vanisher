@@ -2,10 +2,10 @@ import os
 from pathlib import Path
 
 import pytest
-from src import AspectRatioSizer
-from src import ManualSizer
-from src.folder_utils import load_image
-from src.saver import SavePic
+from logo_bg_vanisher import AspectRatioSizer
+from logo_bg_vanisher import ManualSizer
+from logo_bg_vanisher.folder_utils import load_image
+from logo_bg_vanisher.saver import SavePic
 
 TEST_FOLDER = Path(__file__).parents[0]
 

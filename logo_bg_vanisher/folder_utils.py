@@ -8,7 +8,7 @@ from typing import Union
 
 from PIL.Image import Image
 
-from src import CreatePillowImage
+from logo_bg_vanisher import CreatePillowImage
 
 
 def find_files(path: Path, extension: Union[str, Tuple, None]) -> List[Path]:

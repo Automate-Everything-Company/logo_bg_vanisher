@@ -23,14 +23,14 @@ dependencies = [
 ]
 
 [tool.setuptools]
-package-dir = {"" = "src"}
+package-dir = {"" = "logo_bg_vanisher"}
 
 [project.scripts]
 logo_bg_vanisher = "main:main"
 
 
 [tool.ruff]
-src = ["src"]
+src = ["logo_bg_vanisher"]
 fix = true
 show-fixes = true
 show-source = true

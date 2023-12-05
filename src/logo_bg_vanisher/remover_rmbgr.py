@@ -4,7 +4,7 @@ Module which handles background removal from pics using Rmbgr
 import rembg
 from PIL import Image
 
-from .background_remover import BackgroundRemovalStrategy
+from src.logo_bg_vanisher.background_remover import BackgroundRemovalStrategy
 
 
 class RmbgrBackgroundRemoval(BackgroundRemovalStrategy):

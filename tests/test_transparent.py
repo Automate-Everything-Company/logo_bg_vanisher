@@ -2,10 +2,10 @@ import os
 from pathlib import Path
 
 import pytest
-from logo_bg_vanisher.folder_utils import load_image
-from logo_bg_vanisher.remover_pillow import PillowBackgroundRemoval
-from logo_bg_vanisher.remover_rmbgr import RmbgrBackgroundRemoval
-from logo_bg_vanisher.saver import SavePic
+from src.logo_bg_vanisher.folder_utils import load_image
+from src.logo_bg_vanisher import PillowBackgroundRemoval
+from src.logo_bg_vanisher import RmbgrBackgroundRemoval
+from src.logo_bg_vanisher import SavePic
 
 TEST_FOLDER = Path(__file__).parents[0]
 

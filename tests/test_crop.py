@@ -2,10 +2,10 @@ import os
 from pathlib import Path
 
 import pytest
-from logo_bg_vanisher import AutoCropper
-from logo_bg_vanisher import ManualCropper
-from logo_bg_vanisher.folder_utils import load_image
-from logo_bg_vanisher.saver import SavePic
+from src.logo_bg_vanisher import AutoCropper
+from src.logo_bg_vanisher import ManualCropper
+from src.logo_bg_vanisher.folder_utils import load_image
+from src.logo_bg_vanisher import SavePic
 
 TEST_FOLDER = Path(__file__).parents[0]
 

@@ -1,8 +1,9 @@
 import os
-import pytest
 from pathlib import Path
 
-from src import ManualSizer, AspectRatioSizer, AutoCropper, ManualCropper
+import pytest
+from src import AutoCropper
+from src import ManualCropper
 from src.folder_utils import load_image
 from src.saver import SavePic
 

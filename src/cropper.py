@@ -1,8 +1,10 @@
 """
 Module which handles cropping of images.
 """
-from abc import ABC, abstractmethod
-from typing import Tuple, Union
+from abc import ABC
+from abc import abstractmethod
+from typing import Tuple
+from typing import Union
 
 from PIL import Image
 
@@ -34,7 +36,7 @@ class AutoCropper(Cropper):
         self.filename = img.filename
 
     def crop_image(self) -> Image:
-        if self.image.mode != 'RGBA':
+        if self.image.mode != "RGBA":
             raise ValueError("Image must be in RGBA mode for auto cropping")
 
         bbox = self.image.getbbox()
@@ -65,7 +67,9 @@ class ManualCropper(Cropper):
             raise TypeError("All dimensions must be integers")
 
         if len(self.dimensions) != 4:
-            raise ValueError("Dimensions must be a tuple of four integers (left, upper, right, lower)")
+            raise ValueError(
+                "Dimensions must be a tuple of four integers (left, upper, right, lower)"
+            )
         cropped_image = self.image.crop(self.dimensions)
         cropped_image.filename = self.filename
         return cropped_image

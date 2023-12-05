@@ -4,16 +4,16 @@ Main entry
 import argparse
 from pathlib import Path
 
-from src.logo_bg_vanisher.background_remover import BackgroundRemovalStrategy
-from src.logo_bg_vanisher.cropper import AutoCropper
-from src.logo_bg_vanisher.cropper import ManualCropper
-from src.logo_bg_vanisher.folder_utils import find_files
-from src.logo_bg_vanisher.folder_utils import load_image
-from src.logo_bg_vanisher.remover_pillow import PillowBackgroundRemoval
-from src.logo_bg_vanisher.remover_rmbgr import RmbgrBackgroundRemoval
-from src.logo_bg_vanisher.saver import SavePic
-from src.logo_bg_vanisher.sizer import AspectRatioSizer
-from src.logo_bg_vanisher.sizer import ManualSizer
+from logo_bg_vanisher.background_remover import BackgroundRemovalStrategy
+from logo_bg_vanisher.cropper import AutoCropper
+from logo_bg_vanisher.cropper import ManualCropper
+from logo_bg_vanisher.folder_utils import find_files
+from logo_bg_vanisher.folder_utils import load_image
+from logo_bg_vanisher.remover_pillow import PillowBackgroundRemoval
+from logo_bg_vanisher.remover_rmbgr import RmbgrBackgroundRemoval
+from logo_bg_vanisher.saver import SavePic
+from logo_bg_vanisher.sizer import AspectRatioSizer
+from logo_bg_vanisher.sizer import ManualSizer
 
 
 def extract_remover_type(args):

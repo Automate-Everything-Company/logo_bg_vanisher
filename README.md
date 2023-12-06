@@ -15,22 +15,22 @@ completely removing backgrounds, resizing and cropping.
 ## Example
 ### Original image generated with DALL-E 3:
 <p style="display: flex;align-items: center;justify-content: center;">
-  <img src="https://raw.githubusercontent.com/automate-everything-company/logo_bg_vanisher/main/examples/DALL-E_LOGO_ORIGINAL.png"/>
+  <img src="https://github.com/Automate-Everything-Company/logo_bg_vanisher/blob/main/examples/DALL-E_LOGO_ORIGINAL.png"/>
 </p>
 
 ### Step 1, removing background:
 <p style="display: flex;align-items: center;justify-content: center;">
-  <img src="https://raw.githubusercontent.com/automate-everything-company/logo_bg_vanisher/master/examples/DALL-E_LOGO_ORIGINAL_converted_pillow.png"/>
+  <img src="https://github.com/Automate-Everything-Company/logo_bg_vanisher/blob/main/examples/DALL-E_LOGO_ORIGINAL_converted_pillow.png"/>
 </p>
 
 ### Step 2, auto-cropping:
 <p style="display: flex;align-items: center;justify-content: center;">
-  <img src="https://raw.githubusercontent.com/automate-everything-company/logo_bg_vanisher/master/examples/DALL-E_LOGO_ORIGINAL_converted_pillow_cropped.png"/>
+  <img src="https://github.com/Automate-Everything-Company/logo_bg_vanisher/blob/main/examples/DALL-E_LOGO_ORIGINAL_converted_pillow_cropped.png"/>
 </p>
 
 ### Step 3, resizing (to half the size):
 <p style="display: flex;align-items: center;justify-content: center;">
-  <img src="https://raw.githubusercontent.com/automate-everything-company/logo_bg_vanisher/master/examples/DALL-E_LOGO_ORIGINAL_converted_pillow_scaled_cropped.png"/>
+  <img src="https://github.com/Automate-Everything-Company/logo_bg_vanisher/blob/main/examples/DALL-E_LOGO_ORIGINAL_converted_pillow_scaled_cropped.png"/>
 </p>
 
 ## Installation

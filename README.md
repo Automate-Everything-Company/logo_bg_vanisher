@@ -1,52 +1,70 @@
-# AI Logo Background Remover
+# LogoBgVanisher
+LogoBgVanisher is a Python tool designed for quick and efficient background removal from AI-generated logos. 
+It utilizes popular libraries like Pillow and Rembg to handle a variety of background issues.
 
-This Python tool is designed to efficiently remove backgrounds from AI-generated logos, leveraging the power of popular libraries like Pillow and rmbg. 
-It offers a straightforward and simple user interface.
+## Overview
+This tool addresses common challenges in AI-generated logos, such as refining gray areas, 
+completely removing backgrounds, resizing and cropping.
 
-## Inspiration
-The package draws inspiration from the need to handle common issues encountered in AI-generated logos, 
-such as gray areas in black and white logos or the complete removal of backgrounds. 
-These tasks can be challenging and often require sophisticated tools. 
-This package simplifies the process, making it accessible to a wider audience.
+## Key Features
+- Support for both Pillow and Rembg methods
+- Automated and manual image cropping options
+- Image resizing with aspect ratio preservation
+- Command-line interface for ease of use
 
-## Motivation
-While image generator models like DALL-E produce high-quality logos, they sometimes leave behind undesired backgrounds. 
-This package aims to address these issues by providing an easy-to-use solution for background removal, 
-incorporating machine learning techniques for more complex scenarios.
+## Example
+### Original image generated with DALL-E 3:
+<p style="display: flex;align-items: center;justify-content: center;">
+  <img src="https://raw.githubusercontent.com/automate-everything-company/logo_bg_vanisher/master/examples/DALL-E_LOGO_ORIGINAL.png"/>
+</p>
 
-## Features
-- Easy background removal from AI-generated logos
-- Supports both Pillow and rmbgr methods
-- Simple command-line interface
+### Step 1, removing background:
+<p style="display: flex;align-items: center;justify-content: center;">
+  <img src="https://raw.githubusercontent.com/automate-everything-company/logo_bg_vanisher/master/examples/DALL-E_LOGO_ORIGINAL_converted_pillow.png"/>
+</p>
+
+### Step 2, auto-cropping:
+<p style="display: flex;align-items: center;justify-content: center;">
+  <img src="https://raw.githubusercontent.com/automate-everything-company/logo_bg_vanisher/master/examples/DALL-E_LOGO_ORIGINAL_converted_pillow_cropped.png"/>
+</p>
+
+### Step 3, resizing (to half the size):
+<p style="display: flex;align-items: center;justify-content: center;">
+  <img src="https://raw.githubusercontent.com/automate-everything-company/logo_bg_vanisher/master/examples/DALL-E_LOGO_ORIGINAL_converted_pillow_scaled_cropped.png"/>
+</p>
 
 ## Installation
-To install AI Logo Background Remover, run:
+To install, run: 
 ```shell
-pip install your_package_name
+pip install logo_bg_vanisher
 ```
 
 ## Usage
-### Pillow
-To remove the background with Pillow run:
-```shell
-python3 src/main.py --input_path <your_input_path> --output_path <your_output_path> --method pillow
-```
-### Rmbg
-To remove the background with Rmbg run:
-```shell
-python3 src/main.py --input_path <your_input_path> --output_path <your_output_path> --method rmbgr
-```
+Run the following commands in your terminal:
+
+### Using Pillow
+To use Pillow, run: 
+logo_bg_vanisher --file <file_path> [--resize <width,height>] [--crop <method>] --method pillow
+or
+logo_bg_vanisher --input_path <folder_path> [--resize <width,height>] [--crop <method>] --method pillow
+
+### Using Rembg
+Replace the method with '--method rembg'
+
+Replace <file_path> or <folder_path> with your image or folder's path. 
+For resizing, input width,height or just width for aspect ratio: --resize 512,512 
+For cropping, use auto for automatic or width,height for manual: --crop auto
 
 ## Requirements
-- Python 3.7+
+- Python 3.7 or higher
 - Pillow
 - rembg
 
 ## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+MIT License. See LICENSE for details.
 
 ## Contact
-For support or inquiries, please contact us at [info@automate-everything-company.com](mailto:info@automate-everything-company.com).
+Reach out at info@automate-everything-company.com for support or inquiries.
 
-## Acknowledgments
-- This project was inspired by [https://github.com/danielgatis/rembg](mailto:info@automate-everything-company.com).
+## cknowledgments
+Inspired by Daniel Gatis's rembg (https://github.com/danielgatis/rembg).

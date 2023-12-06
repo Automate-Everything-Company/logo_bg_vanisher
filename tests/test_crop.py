@@ -35,7 +35,7 @@ def test_auto_cropper(file, expected_crop):
     image_object = auto_cropper.crop_image()
 
     image_saver = SavePic(img=image_object)
-    image_saver.save_image(suffix="cropped")
+    image_saver.save_image(suffix="_cropped")
 
     # Check if processed image was created
     assert expected_crop.exists(), "Processed image file does not exist"
@@ -60,7 +60,7 @@ def test_manual_cropper(file, expected_crop):
     image_object = manual_cropper.crop_image()
 
     image_saver = SavePic(img=image_object)
-    image_saver.save_image(suffix="cropped")
+    image_saver.save_image(suffix="_cropped")
 
     # Check if processed image was created
     assert expected_crop.exists(), "Processed image file does not exist"

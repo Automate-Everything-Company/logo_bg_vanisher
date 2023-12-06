@@ -10,7 +10,7 @@ from logo_bg_vanisher.cropper import ManualCropper
 from logo_bg_vanisher.folder_utils import find_files
 from logo_bg_vanisher.folder_utils import load_image
 from logo_bg_vanisher.remover_pillow import PillowBackgroundRemoval
-from logo_bg_vanisher.remover_rmbgr import RmbgrBackgroundRemoval
+from logo_bg_vanisher.remover_rembg import RembgBackgroundRemoval
 from logo_bg_vanisher.saver import SavePic
 from logo_bg_vanisher.sizer import AspectRatioSizer
 from logo_bg_vanisher.sizer import ManualSizer
@@ -21,7 +21,7 @@ def extract_remover_type(args):
     if args.method == "pillow":
         remover = PillowBackgroundRemoval(tolerance=50, edge_tolerance=50)
     elif args.method == "rmbgr":
-        remover = RmbgrBackgroundRemoval()
+        remover = RembgBackgroundRemoval()
     else:
         raise ValueError("Method must be either 'pillow' or 'rmbgr'.")
     return remover
@@ -60,7 +60,7 @@ def _process_image(pic: Path, user_args: argparse.Namespace) -> None:
         image_object = remover.remove_background()
         suffix = suffix + "_converted_pillow"
     elif user_args.method == "rmbg":
-        remover = RmbgrBackgroundRemoval(img=image_object)
+        remover = RembgBackgroundRemoval(img=image_object)
         image_object = remover.remove_background()
         suffix = suffix + "_converted_rmbg"
 
@@ -76,7 +76,7 @@ def _process_image(pic: Path, user_args: argparse.Namespace) -> None:
         else:
             width = int(user_args.resize)
             scaler.width = width
-            image_object = scaler.set_size(image=image_object)
+            image_object = scaler.set_size()
             suffix = suffix + "_scaled"
 
     # Crop
@@ -100,19 +100,29 @@ def main() -> None:
     Main entry for the CLI
     :return: None
     """
-    args = parse_arguments()
-    file = Path(args.file)
-    input_path = Path(args.input_path) if args.input_path else None
+    try:
+        args = parse_arguments()
+        file = Path(args.file)
+        input_path = Path(args.input_path) if args.input_path else None
 
-    if input_path:
-        pics = find_files(path=input_path, extension=('.png', '.jpeg'))
-        for pic in pics:
-            _process_image(pic=pic, user_args=args)
-    elif file:
-        _process_image(pic=file, user_args=args)
+        if input_path:
+            pics = find_files(path=input_path, extension=('.png', '.jpeg'))
+            for pic in pics:
+                _process_image(pic=pic, user_args=args)
+        elif file:
+            _process_image(pic=file, user_args=args)
 
-    if args.verbose:
-        print("Done!")
+        if args.verbose:
+            print("Done!")
+
+    except FileNotFoundError as exc:
+        raise FileNotFoundError(f"The file was not {pic} found") from exc
+    except PermissionError as exc:
+        raise PermissionError(f"Permission denied for file {pic}") from exc
+    except OSError as exc:
+        raise OSError(f"An error occurred while opening the file {pic}: {exc}") from exc
+    except Exception as exc:
+        raise Exception(f"An unexpected error occurred: {exc}") from exc
 
 
 if __name__ == "__main__":

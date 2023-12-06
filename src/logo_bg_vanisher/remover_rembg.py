@@ -7,7 +7,7 @@ from PIL import Image
 from .background_remover import BackgroundRemovalStrategy
 
 
-class RmbgrBackgroundRemoval(BackgroundRemovalStrategy):
+class RembgBackgroundRemoval(BackgroundRemovalStrategy):
     def __init__(self, img):
         super().__init__(img)
         self.filename = img.filename

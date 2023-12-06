@@ -100,19 +100,29 @@ def main() -> None:
     Main entry for the CLI
     :return: None
     """
-    args = parse_arguments()
-    file = Path(args.file)
-    input_path = Path(args.input_path) if args.input_path else None
+    try:
+        args = parse_arguments()
+        file = Path(args.file)
+        input_path = Path(args.input_path) if args.input_path else None
 
-    if input_path:
-        pics = find_files(path=input_path, extension=('.png', '.jpeg'))
-        for pic in pics:
-            _process_image(pic=pic, user_args=args)
-    elif file:
-        _process_image(pic=file, user_args=args)
+        if input_path:
+            pics = find_files(path=input_path, extension=('.png', '.jpeg'))
+            for pic in pics:
+                _process_image(pic=pic, user_args=args)
+        elif file:
+            _process_image(pic=file, user_args=args)
 
-    if args.verbose:
-        print("Done!")
+        if args.verbose:
+            print("Done!")
+
+    except FileNotFoundError as exc:
+        raise FileNotFoundError(f"The file was not {pic} found") from exc
+    except PermissionError as exc:
+        raise PermissionError(f"Permission denied for file {pic}") from exc
+    except OSError as exc:
+        raise OSError(f"An error occurred while opening the file {pic}: {exc}") from exc
+    except Exception as exc:
+        raise Exception(f"An unexpected error occurred: {exc}") from exc
 
 
 if __name__ == "__main__":

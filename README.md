@@ -15,7 +15,7 @@ completely removing backgrounds, resizing and cropping.
 ## Example
 ### Original image generated with DALL-E 3:
 <p style="display: flex;align-items: center;justify-content: center;">
-  <img src="https://raw.githubusercontent.com/automate-everything-company/logo_bg_vanisher/master/examples/DALL-E_LOGO_ORIGINAL.png"/>
+  <img src="https://raw.githubusercontent.com/automate-everything-company/logo_bg_vanisher/main/examples/DALL-E_LOGO_ORIGINAL.png"/>
 </p>
 
 ### Step 1, removing background:

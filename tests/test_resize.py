@@ -34,7 +34,7 @@ def test_autoscaler_resize(file, expected_resize):
     image_object = scaler_aspect_ratio.set_size()
 
     image_saver = SavePic(img=image_object)
-    image_saver.save_image(suffix="scaled")
+    image_saver.save_image(suffix="_scaled")
 
     # Check if processed image was created
     assert expected_resize.exists(), "Processed image file does not exist"
@@ -56,7 +56,7 @@ def test_manualscaler_resize(file, expected_resize):
     image_object = scaler_aspect_ratio.set_size()
 
     image_saver = SavePic(img=image_object)
-    image_saver.save_image(suffix="scaled")
+    image_saver.save_image(suffix="_scaled")
 
     # Check if processed image was created
     assert expected_resize.exists(), "Processed image file does not exist"

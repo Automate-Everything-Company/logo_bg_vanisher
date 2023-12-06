@@ -35,7 +35,7 @@ def test_transparent_pillow(file, expected_pillow):
     remover = PillowBackgroundRemoval(img=image_object)
     image_object = remover.remove_background()
     image_saver = SavePic(img=image_object)
-    image_saver.save_image(suffix="PIL_converted")
+    image_saver.save_image(suffix="_PIL_converted")
 
     # Check if processed image was created
     assert expected_pillow.exists(), "Processed image file does not exist"
@@ -55,7 +55,7 @@ def test_removal_rembg(file, expected_rembg):
     image_object = remover.remove_background()
 
     image_saver = SavePic(img=image_object)
-    image_saver.save_image(suffix="rembg_converted")
+    image_saver.save_image(suffix="_rembg_converted")
     # Test that the processed image was created
     assert expected_rembg.exists(), "Processed image file does not exist"
 

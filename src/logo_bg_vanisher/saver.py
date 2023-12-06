@@ -22,7 +22,7 @@ class SavePic:
         """
         try:
             filename = Path(self.image.filename)
-            output_path = filename.parent / f"{filename.stem}_{suffix}.png"
+            output_path = filename.parent / f"{filename.stem}{suffix}.png"
             self.image.save(output_path, "PNG")
         except OSError as e:
             print(f"Error saving image: {e}")

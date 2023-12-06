@@ -4,3 +4,4 @@
 /dist/
 src/__pycache__/
 src/logo_bg_vanisher/__pycache__/
+/tests/.pytest_cache/
